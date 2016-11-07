@@ -449,3 +449,9 @@ class CephFSNativeDriverTestCase(test.TestCase):
                           self._driver.create_share,
                           self._context,
                           self._share)
+
+    def test_check_for_setup_error_with_connection_error(self):
+        cephfs_native.connect = mock.Mock(side_effect=Exception())
+        self.assertRaises(Exception,
+                          self._driver.check_for_setup_error,
+                          self._context)
